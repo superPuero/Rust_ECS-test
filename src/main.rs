@@ -65,14 +65,27 @@ struct  Foo{
 
 fn main() {
     let mut r = Registry::new();
-    let id = r.add_entity();
-    r.add_component(id, Transform{x: 12, y: 43});
-    r.add_component(id, Foo{name: String::from("Fooer")});
+    let id1 = r.add_entity();
+    let id2 = r.add_entity();
 
-    let t = r.get_component::<Transform>(id);
-    println!("x: {}, y: {}", t.x, t.y);
+
+    r.add_component(id1, Transform{x: 12, y: 43});
+    r.add_component(id1, Foo{name: String::from("Fooer")});
+
+
+    r.add_component(id2, Transform{x: 543, y: 345});
+    r.add_component(id2, Foo{name: String::from("Boo")});
+
+
+    let t1 = r.get_component::<Transform>(id1);
+    println!("x: {}, y: {}", t1.x, t1.y);
     
-    println!("name: {}", r.get_component::<Foo>(id).name);
+    println!("name: {}", r.get_component::<Foo>(id1).name);
 
+    
+    let t2 = r.get_component::<Transform>(id2);
+    println!("x: {}, y: {}", t2.x, t2.y);
+    
+    println!("name: {}", r.get_component::<Foo>(id2).name);
 
 }
